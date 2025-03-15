@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Mood Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.5s ease;
+        }
+
+        .mood-tracker {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            transition: background-color 0.5s ease;
+        }
+
+        .mood-buttons {
+            display: flex;
+            justify-content: space-around;
+            width: 80%;
+        }
+
+        .mood-button {
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            transition: transform 0.2s ease;
+        }
+
+        .mood-button:hover {
+            transform: scale(1.2);
+        }
+
+        .happy {
+            background-color: #F7DC6F;
+        }
+
+        .sad {
+            background-color: #87CEEB;
+        }
+
+        .excited {
+            background-color: #FFC107;
+        }
+
+        .calm {
+            background-color: #8BC34A;
+        }
+
+        .mood-history {
+            margin-top: 20px;
+        }
+
+        #mood-history-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .dark-mode-toggle {
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        .dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .dark-mode .mood-button {
+            background-color: #555;
+        }
+
+        /* Responsive Design */
+
+        @media only screen and (max-width: 768px) {
+            .mood-buttons {
+                flex-direction: column;
+            }
+            .mood-button {
+                margin-bottom: 10px;
+            }
+        }
+
+        @media only screen and (max-width: 480px) {
+            .mood-tracker {
+                height: auto;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mood-tracker">
+        <h1>Daily Mood Tracker</h1>
+        <div class="mood-buttons">
+            <button class="mood-button happy" id="happy">
+                🙂
+            </button>
+            <button class="mood-button sad" id="sad">
+                ☹
+            </button>
+            <button class="mood-button excited" id="excited">
+                🤩
+            </button>
+            <button class="mood-button calm" id="calm">
+                😌
+            </button>
+        </div>
+        <div class="mood-history">
+            <h2>Mood History</h2>
+            <ul id="mood-history-list">
+            </ul>
+        </div>
+        <button class="dark-mode-toggle">Toggle Dark Mode</button>
+    </div>
+
+    <script>
+        const moodButtons = document.querySelectorAll('.mood-button');
+        const moodTracker = document.querySelector('.mood-tracker');
+        const moodHistoryList = document.getElementById('mood-history-list');
+        const darkModeToggle = document.querySelector('.dark-mode-toggle');
+
+        let selectedMoods = [];
+
+        moodButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const mood = button.id;
+                moodTracker.className = 'mood-tracker';
+                moodTracker.classList.add(mood);
+                addMoodToHistory(mood);
+            });
+        });
+
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+
+        function addMoodToHistory(mood) {
+            const moodHistoryItem = document.createElement('LI');
+            moodHistoryItem.textContent = mood;
+            moodHistoryList.appendChild(moodHistoryItem);
+            selectedMoods.push(mood);
+        }
+    </script>
+</body>
+</html>
